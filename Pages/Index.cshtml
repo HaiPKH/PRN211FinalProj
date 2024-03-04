@@ -1,10 +1,17 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "VIDL";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome, please input URL here</h1>
+    <form method = "post" asp-page = "Index">
+    <input id = "url" type = "text" style = "width: 40%; margin-left: auto; margin-right: auto" asp-for="@Model.Url"/>
+    <select id = "format" asp-for="@Model.Format">Select format:
+        <option value = "mp3">.mp3</option>
+        <option value = "mp4">.mp4</option>
+    </select>
+    <button type = "submit">Convert</button>
+    </form>
 </div>
