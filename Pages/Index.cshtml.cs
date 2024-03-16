@@ -25,8 +25,10 @@ namespace PRN211FinalProj.Pages
         {
             try
             {
+                //HttpContext.Session.SetString("EmbedUrl", EmbedUrl);
                 Console.WriteLine("Begin Download");
                 await DownloadYouTubeVideo(Url, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+                Url = Url.Replace("watch?v=", "embed/");
             }
             catch (Exception ex)
             {
@@ -59,6 +61,18 @@ namespace PRN211FinalProj.Pages
 
                 Console.WriteLine("Download completed!");
                 Console.WriteLine($"Video saved as: {outputFilePath}{datetime}");
+                string filePath = outputFilePath;
+                //FileInfo file = new FileInfo(filePath);
+                //if (file.Exists)
+                //{
+                //    Response.Clear();
+                //    Response.Headers.Clear();
+                //    Response.Headers.Add("Content-Disposition", "attachment; filename=" + file.Name);
+                //    Response.Headers.Add("Content-Length", file.Length.ToString());
+                //    Response.ContentType = "text/plain";
+                //    await Response.SendFileAsync(file.FullName);
+                //    Response.CompleteAsync();
+                //}
             }
             else
             {

@@ -1,0 +1,36 @@
+﻿@page "/"
+@model PRN211FinalProj.Pages.LoginModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h3>Login</h3>
+    <b>@Model.Msg</b>
+    <form method="post" asp-page="Index">
+        <table>
+            <tr>
+                <td>Phone Number</td>
+                <td><input type="text" asp-for="@Model.PhoneNumber" /></td>
+            </tr>
+            <tr>
+                <td>Otp</td>
+                <td><input type="password" asp-for="@Model.Otp" /></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" value="Login" /></td>
+            </tr>
+             <tr>
+                <td>&nbsp;</td>
+                <td><button type="submit" asp-page-handler="SendOtp" class="btn btn-outline-info" id="btnSendOTP">Send OTP</button></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
