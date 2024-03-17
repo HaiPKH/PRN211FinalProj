@@ -19,6 +19,9 @@ namespace PRN211FinalProj.Pages
 
         [BindProperty]
         public string Format { get; set; }
+
+        [BindProperty]
+        public string FilePath { get; set; }
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -44,10 +47,12 @@ namespace PRN211FinalProj.Pages
                 var path = await DownloadYouTubeVideo(Url, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
                 var driveid = await DriveRepo.DriveUpload(path, Url);
                 context.VideoInfos.Add(new Model.VideoInfo 
-                {User = context.Users.FirstOrDefault(e => e.PhoneNum == HttpContext.Session.Get("phonenum").ToString()),
+                {User = context.Users.FirstOrDefault(e => e.PhoneNum == HttpContext.Session.GetString("phonenumber")),
                 VideoUrl = Url,
                 DriveId = driveid});
                 Url = Url.Replace("watch?v=", "embed/");
+                FilePath = path.ToString();
+                //MemoryStream stream = DriveRepo.DriveDownloadFile(driveid.ToString());
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -80,13 +85,6 @@ namespace PRN211FinalProj.Pages
 
                 Console.WriteLine("Download completed!");
                 Console.WriteLine($"Video saved as: {outputFilePath}{datetime}");
-                //if (Format == "mp3")
-                //{
-                //    FileInfo file = new FileInfo(outputFilePath);
-                //    VideoInfo videoInfo = new VideoInfo(file);
-                //    FFMpeg encoder = new FFMpeg();
-                //    encoder.ExtractAudio(videoInfo, file);
-                //}
                 return outputFilePath;
 
             }
