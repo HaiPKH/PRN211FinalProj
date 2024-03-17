@@ -1,7 +1,7 @@
 ﻿@page "/"
 @model PRN211FinalProj.Pages.LoginModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Login";
 }
 
 <html>
@@ -12,7 +12,7 @@
 <body>
     <h3>Login</h3>
     <b>@Model.Msg</b>
-    <form method="post" asp-page="Index">
+    <form method="post" asp-page="Login">
         <table>
             <tr>
                 <td>Phone Number</td>
@@ -29,6 +29,10 @@
              <tr>
                 <td>&nbsp;</td>
                 <td><button type="submit" asp-page-handler="SendOtp" class="btn btn-outline-info" id="btnSendOTP">Send OTP</button></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><button type="submit" asp-page-handler="Register" class="btn btn-outline-info" id="btnRegister">Register</button></td>
             </tr>
         </table>
     </form>

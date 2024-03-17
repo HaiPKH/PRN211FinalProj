@@ -34,6 +34,10 @@ namespace PRN211FinalProj.Pages
             // all  done
             return Page();
         }
+        public async Task<IActionResult> OnPostRegister(string returnUrl = null)
+        {
+            return RedirectToPage("/Register");
+        }
         public string GenerateOtp()
         {
             VIDLContext context = new VIDLContext();
@@ -45,7 +49,7 @@ namespace PRN211FinalProj.Pages
 
 
             u.Otp = BCrypt.Net.BCrypt.HashPassword(otp);
-
+            Console.WriteLine(otp);
             context.SaveChanges();
             return otp;
         }
@@ -55,17 +59,17 @@ namespace PRN211FinalProj.Pages
             try
             {
                 string accountSid = "ACdb5cb630bc0d972abcc437d4c3d5c161";
-                string authToken = "c6440ce9e2490f930f063b2770a66338";
+                string authToken = "632f27936a29f412f8fd3f34c39f6820";
                 string phoneNum = "+84" + PhoneNumber.Remove(0, 1);
-
-                TwilioClient.Init(accountSid, authToken);
+                GenerateOtp();
+                //TwilioClient.Init(accountSid, authToken);
                 //var message = MessageResource.Create(
                 //    body: "Your OTP is " + GenerateOtp(),
                 //    from: new Twilio.Types.PhoneNumber("+12567279723"),
                 //    to: new Twilio.Types.PhoneNumber(phoneNum)
                 //);
 
-                Console.WriteLine(message.Sid + "\n" + message.Body + "\n" + PhoneNumber);
+                //Console.WriteLine(message.Sid + "\n" + message.Body + "\n" + PhoneNumber);
             }
             catch(Exception ex)
             {
@@ -83,6 +87,7 @@ namespace PRN211FinalProj.Pages
             if (BCrypt.Net.BCrypt.Verify(Otp, u.Otp) == true)
             {
                 HttpContext.Session.SetString("phonenumber", PhoneNumber);
+                Console.WriteLine(HttpContext.Session.GetString("phonenumber"));
                 u.Otp = null;
                 context.Entry<User>(u).State = EntityState.Modified;
                 context.SaveChanges();
