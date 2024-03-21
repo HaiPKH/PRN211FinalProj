@@ -22,6 +22,9 @@ namespace PRN211FinalProj.Pages
 
         [BindProperty]
         public string FilePath { get; set; }
+        [BindProperty]
+        public string DrivePath { get; set; }
+        char[] delimiterChars = { '/', '?', '=' };
         public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
@@ -42,17 +45,27 @@ namespace PRN211FinalProj.Pages
             try
             {
                 VIDLContext context = new VIDLContext();
-                //HttpContext.Session.SetString("EmbedUrl", EmbedUrl);
                 Console.WriteLine("Begin Download");
                 var path = await DownloadYouTubeVideo(Url, Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
                 var driveid = await DriveRepo.DriveUpload(path, Url);
+                if (Url.Contains("youtu.be"))
+                {
+                    string[] words = Url.Split(delimiterChars);
+                    Url = words[3];
+                }
+                else
+                {
+                    string[] words = Url.Split(delimiterChars);
+                    Url = words[5];
+                }
+                Console.WriteLine(Url);
                 context.VideoInfos.Add(new Model.VideoInfo 
                 {User = context.Users.FirstOrDefault(e => e.PhoneNum == HttpContext.Session.GetString("phonenumber")),
-                VideoUrl = Url,
+                VideoUrl = @"https://www.youtube.com/"+ Url,
                 DriveId = driveid});
-                Url = Url.Replace("watch?v=", "embed/");
+                Url = @"https://www.youtube.com/embed/"+ Url;
                 FilePath = path.ToString();
-                //MemoryStream stream = DriveRepo.DriveDownloadFile(driveid.ToString());
+                DrivePath = @"https://drive.google.com/file/d/"+driveid;
                 context.SaveChanges();
             }
             catch (Exception ex)

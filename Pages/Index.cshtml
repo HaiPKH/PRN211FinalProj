@@ -3,7 +3,20 @@
 @{
     ViewData["Title"] = "VIDL";
 }
-
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/Index">VIDL</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/VideoInfo">Saved Videos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 <div class="text-center">
     <h1 class="display-4">Welcome, please input URL here</h1>
     <form method = "post" asp-page = "Index">
@@ -17,5 +30,8 @@
         <iframe width="420" height="315"
             src="@Model.Url">
         </iframe>
+        <form action="@Model.DrivePath">
+    <input type="submit" value="Download Video" />
+        </form>
     
 </div>

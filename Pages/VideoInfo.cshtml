@@ -1,0 +1,41 @@
+﻿@page "/VideoInfo"
+@model PRN211FinalProj.Pages.VideoInfoModel
+@{
+}
+    <table>
+          <tr>
+            <th>Id</th>
+            <th>Uploader ID</th>
+            <th>Youtube Url</th>
+            <th>Drive File ID</th>
+            <th>Notes</th>
+            <th>Update Notes</th>
+            <th></th>
+            <th></th>
+        </tr>
+       @foreach (var item in @Model.videos)
+       {
+                <tr>
+                <td>@item.Id</td>
+                <td>@item.UserId</td>
+                <td>@item.VideoUrl</td>
+                <td>@item.DriveId</td>
+                <td>@item.Notes</td>
+                <form method = "post" asp-page = "VideoInfo">
+                    <td>
+                    <input id = "vidinfoid" type="hidden" value="@item.Id" asp-for="@Model.VidInfoId"/>
+                    <input id = "note" type="text" asp-for="@Model.UpdateNote"/>
+                    </td>
+                    <td>
+                    <input type="submit" action="post"/>
+                    </td>
+                </form>
+                    <td>
+                    <form asp-page-handler="Delete" method="post">
+                        <input id = "vidinfoid" type="hidden" value="@item.Id" asp-for="@Model.VidInfoId"/>
+                        <button class="btn btn-outline-info">Delete</button>
+                    </form>
+                    </td>
+                 </tr>
+       }
+</table>

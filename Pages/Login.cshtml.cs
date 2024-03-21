@@ -61,6 +61,7 @@ namespace PRN211FinalProj.Pages
                 string accountSid = "ACdb5cb630bc0d972abcc437d4c3d5c161";
                 string authToken = "632f27936a29f412f8fd3f34c39f6820";
                 string phoneNum = "+84" + PhoneNumber.Remove(0, 1);
+                //GenerateOtp();
                 TwilioClient.Init(accountSid, authToken);
                 var message = MessageResource.Create(
                     body: "Your OTP is " + GenerateOtp(),

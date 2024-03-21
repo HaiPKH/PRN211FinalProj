@@ -211,44 +211,44 @@ namespace PRN211FinalProj.Repo
         //    return null;
         //}
 
-        //private static string? DriveDelete(string fileId)
-        //{
-        //    try
-        //    {
-        //        // Load the Service account credentials and define the scope of its access.
-        //        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
-        //                        .CreateScoped(DriveService.ScopeConstants.Drive);
+        public static string? DriveDelete(string fileId)
+        {
+            try
+            {
+                // Load the Service account credentials and define the scope of its access.
+                var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                                .CreateScoped(DriveService.ScopeConstants.Drive);
 
-        //        var service = new DriveService(new BaseClientService.Initializer()
-        //        {
-        //            HttpClientInitializer = credential,
-        //            ApplicationName = "Drive API Snippets"
-        //        });
-        //        // Create a new file, with metadata and stream.
-        //        var request = service.Files.Delete(fileId);
-        //        request.Fields = "*";
-        //        var results = request.Execute();
-        //        // Prints the uploaded file id.
-        //        Console.WriteLine("Deleted file" + fileId);
-        //        return results;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        // TODO(developer) - handle error appropriately
-        //        if (e is AggregateException)
-        //        {
-        //            Console.WriteLine("Credential Not found");
-        //        }
-        //        else if (e is FileNotFoundException)
-        //        {
-        //            Console.WriteLine("File not found");
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-        //    return null;
-        //}
+                var service = new DriveService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = "Drive API Snippets"
+                });
+                // Create a new file, with metadata and stream.
+                var request = service.Files.Delete(fileId);
+                request.Fields = "*";
+                var results = request.Execute();
+                // Prints the uploaded file id.
+                Console.WriteLine("Deleted file" + fileId);
+                return results;
+            }
+            catch (Exception e)
+            {
+                // TODO(developer) - handle error appropriately
+                if (e is AggregateException)
+                {
+                    Console.WriteLine("Credential Not found");
+                }
+                else if (e is FileNotFoundException)
+                {
+                    Console.WriteLine("File not found");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return null;
+        }
     }
 }
